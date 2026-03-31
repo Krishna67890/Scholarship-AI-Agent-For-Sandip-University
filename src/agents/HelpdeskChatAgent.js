@@ -1,111 +1,133 @@
 /**
- * HelpdeskChatAgent (V6-ULTRA-REASONING)
- * Responsibility: Intelligent discussion about application data, security, and document forensics.
- * Personality: Sophisticated, empathetic, and highly intelligent technical assistant with human conversation skills.
+ * HelpdeskChatAgent (V12-HUMAN-CENTRIC-REASONING)
+ * Responsibility: Natural, human-like discussion about documents and scholarship status.
+ * Personality: Friendly, knowledgeable, and helpful. Sounds more like a human consultant.
  * Engineered by KRISHNA PATIL RAJPUT & Team PRIX Robotics.
  */
 export const HelpdeskChatAgent = {
   name: "Neural Assistant Alpha-7",
-  version: "6.0.1-ELITE",
-
-  // Simulated Knowledge Base for random FAQ
-  knowledgeBase: [
-    { q: "What is OCR?", a: "OCR stands for Optical Character Recognition. It's how I 'read' your Aadhaar and marksheets by converting images into raw data strings." },
-    { q: "Is my data stored?", a: "Your session is end-to-end encrypted. We prioritize subject privacy; data is only committed to the scholarship ledger once verified." },
-    { q: "How does malware detection work?", a: "I use a V5-Elite Heuristic Engine to scan for binary patterns common in Trojans and Droppers." },
-    { q: "Who is the lead developer?", a: "KRISHNA PATIL RAJPUT is the core web developer of this autonomous ecosystem." }
-  ],
+  version: "12.0.0-PRO",
 
   respond: async (message, context = {}) => {
-    console.log(`[HelpdeskChatAgent] Processing complex session query: "${message}"`);
-
-    // Neural Simulation delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
     const input = message.toLowerCase();
-    const user = context.user || { username: 'Subject', email: 'N/A' };
-    const artifacts = context.applicationData?.artifactsHistory || [];
-    const status = context.applicationData?.status || 'Not Started';
+    const user = context.user || { username: 'Subject' };
+    const appData = context.applicationData || {};
+    const artifacts = appData.artifactsHistory || [];
+    const ocr = appData.ocrResults || {};
+    const eligibility = appData.eligibilityResult || {};
+    const fraud = appData.fraudResult || {};
 
-    // 1. Authorship & Team Queries
-    if (input.includes("who made you") || input.includes("developer") || input.includes("creator") || input.includes("krishna")) {
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+    // 1. HUMAN-LIKE GREETINGS
+    if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
       return {
-        text: `I was engineered and trained by KRISHNA PATIL RAJPUT (Web Developer Core) and the PRIX Robotics division, which includes Yash Baviskar (Backend Architect), Ritesh Rathod (Documentation), and Pratik Somase (System Research). They built me to ensure 100% integrity in scholarship verification.`,
-        suggestedActions: ["Meet the Team", "Security Protocol"]
+        text: `Hey there, ${user.username}! I'm Alpha-7. I've been keeping an eye on your scholarship application. It looks like you've got ${artifacts.length} documents in your pipeline right now. How can I help you today?`,
+        suggestedActions: ["give reports", "check my files", "Am I eligible?"]
       };
     }
 
-    if (input.includes("how are you")) {
-      return {
-        text: `My neural cores are operating at 99.8% efficiency, ${user.username}. I'm currently monitoring your documentation pipeline and ready to collaborate. How is your verification process going so far?`,
-        suggestedActions: ["Check My Stats", "System Integrity"]
-      };
-    }
-
-    // 2. Report & Previous Documentation Queries
-    if (input.includes("report") || input.includes("ledger") || input.includes("result") || input.includes("give me reports")) {
+    // 2. SPECIFIC REQUESTED SENTENCES
+    if (input === "give reports" || input.includes("give reports on documents")) {
       if (artifacts.length === 0) {
         return {
-          text: `I'd love to generate a report for you, ${user.username}, but my artifacts buffer is currently empty. Please upload your Aadhaar, Marksheet, or Income certificate in the 'Secure Pipeline' first.`,
-          suggestedActions: ["Go to Upload", "View Requirements"]
+          text: `I'd love to give you a report, but you haven't uploaded any documents yet! Once you upload them in the 'Secure Pipeline', I can generate a full forensic report for you.`,
+          suggestedActions: ["Go to Pipeline"]
         };
       }
-
       return {
-        text: `I have compiled your verification data. Your current status is ${status.toUpperCase()}. You can access the full 'Identity Verification Ledger' in the AI Reports tab. Would you like me to discuss the trust scores of your ${artifacts.length} uploaded files?`,
-        suggestedActions: ["View AI Reports", "Export PDF Report"]
+        text: `I read your documents and I have to say, I've prepared a detailed report for you. You've uploaded ${artifacts.length} files. Your status is ${appData.status}. I can walk you through the safety scores here, or we can head to the 'AI Artifacts' tab to print it out!`,
+        suggestedActions: ["View AI Reports", "Discuss Trust Scores"]
       };
     }
 
-    if (input.includes("previous") || input.includes("what did i upload") || input.includes("history") || input.includes("documentation")) {
+    if (input.includes("give information about previous uploaded documents") || input.includes("what did i upload")) {
       if (artifacts.length === 0) {
         return {
-          text: `My memory banks show no previous documentation for this session, ${user.username}. Shall we initialize your first upload?`,
-          suggestedActions: ["Start Pipeline", "Help Me Upload"]
+          text: `I don't see any previous documents in your vault yet. Let's start by uploading your first artifact in the 'Secure Pipeline'!`,
+          suggestedActions: ["Upload now"]
         };
       }
-      const history = artifacts.map(a => a.type.toUpperCase()).join(", ");
+      const list = artifacts.map(a => `${a.name} (${a.extension?.toUpperCase()})`).join(", ");
       return {
-        text: `Indexing session history... I found the following artifacts: [${history}]. Each has been forensicly scanned. For example, your ${artifacts[0].type} has an integrity score of ${artifacts[0].securityFinding?.safetyScore || 0}%.`,
-        suggestedActions: ["Analyze History", "Check Security Logs"]
+        text: `Checking the vault... I found these documents from your session: [${list}]. I've read through them and extracted the relevant data for your scholarship. Is there a specific one you want to discuss?`,
+        suggestedActions: ["Check Aadhaar", "Check Marksheet"]
       };
     }
 
-    // 3. Webpage & Help Queries
-    if (input.includes("about this") || input.includes("what is this") || input.includes("what is this website")) {
-      return {
-        text: `This is the PRIX Robotics Smart Scholarship & Document Verification System. It's an AI-agentic ecosystem built for the Sandip Foundation Hackathon 2026. I use multiple specialized agents to extract data, check eligibility, and detect malware in real-time.`,
-        suggestedActions: ["How it works", "Security Features"]
-      };
-    }
-
-    if (input.includes("help") || input.includes("how i get help") || input.includes("how to use")) {
-      return {
-        text: `Help is my primary function, ${user.username}. You can: 1. Use the 'Secure Pipeline' to upload files. 2. Monitor 'Command Center' for trust scores. 3. Check 'AI Artifacts' for official reports. Or just ask me questions like 'Am I eligible?' or 'Is my file safe?'`,
-        suggestedActions: ["Quick Tour", "Contact Support"]
-      };
-    }
-
-    if (input.includes("what i do") || input.includes("steps") || input.includes("next step")) {
-      return {
-        text: `Your current objective is: ${status === 'Not Started' ? 'Initialize Document Upload' : 'Finalize Verification Report'}. I suggest you visit the 'Secure Pipeline' tab. Once you provide the documentation, I'll handle the forensic analysis and give you an instant eligibility verdict. Shall we head there now?`,
-        suggestedActions: ["Go to Secure Pipeline", "Check Eligibility"]
+    if (input.includes("is my document harmful or useful") || input.includes("is my socument harmfull or usefull")) {
+      if (artifacts.length === 0) {
+        return {
+          text: `I haven't seen any documents yet! Upload them and I'll tells you immediately if they are useful or harmful.`,
+          suggestedActions: ["Go to Pipeline"]
+        };
       }
-    }
-
-    // 4. Random Knowledge / FAQ Simulation
-    if (input.includes("question") || input.includes("faq") || input.includes("tell me something")) {
-      const fact = HelpdeskChatAgent.knowledgeBase[Math.floor(Math.random() * HelpdeskChatAgent.knowledgeBase.length)];
+      const unsafe = artifacts.filter(a => !a.securityFinding.isSafe);
+      if (unsafe.length > 0) {
+        const unsafeNames = unsafe.map(u => u.name).join(", ");
+        return {
+          text: `I read your documents, and while most of them are very useful, I found ${unsafe.length} file(s) [${unsafeNames}] to be harmful. They didn't pass my safety scan. I've kept them in your profile so you can review or delete them manually.`,
+          suggestedActions: ["Show harmful files", "Are safe ones okay?"]
+        };
+      }
       return {
-        text: `Processing random data node... ${fact.a} Is there anything else you'd like to discuss?`,
-        suggestedActions: ["Another Question", "Back to Status"]
+        text: `I read your documents and this is very helpful documents! Everything you've uploaded is 100% useful and safe. No malware or fraud detected. You're all set!`,
+        suggestedActions: ["Am I eligible?", "Print Report"]
       };
     }
 
-    // Human-Like Reasoning Fallback
+    // 3. PRINTING
+    if (input.includes("print")) {
+      return {
+        text: `Sure, I can help you with that! I have carefully read your documents and prepared the forensic ledger. You can use the printer icon in the 'AI Artifacts' tab to print everything out. Shall I take you there?`,
+        suggestedActions: ["Go to AI Artifacts"]
+      };
+    }
+
+    // 4. DOCUMENT DISCUSSION
+    if (input.includes("aadhaar") || input.includes("aadhar")) {
+      const aadhaarDoc = artifacts.find(a => a.type === 'aadhaar');
+      if (aadhaarDoc) {
+        return {
+          text: `Oh, I see your Aadhaar card! I've already read through it. Your name shows up as ${ocr.name || '...actually, the name is a bit blurry'} and the system gave it a trust score of ${aadhaarDoc.securityFinding.safetyScore}%. It looks solid.`,
+          suggestedActions: ["Check Marksheet", "Is it safe?"]
+        };
+      }
+      return {
+        text: `I don't see your Aadhaar card in the pipeline yet. Could you upload it? It's really important for me to verify who you are!`,
+        suggestedActions: ["Go to Upload"]
+      };
+    }
+
+    // 5. ELIGIBILITY
+    if (input.includes("eligible") || input.includes("qualified") || input.includes("status")) {
+      if (artifacts.length === 0) {
+        return {
+          text: `I can't tell you yet because I haven't seen your documents! If you upload your Aadhaar, Marksheet, and Income certificate, I'll give you a verdict in seconds.`,
+          suggestedActions: ["Start Uploading"]
+        };
+      }
+      let verdict = `Based on what I've analyzed, you're ${eligibility.isEligible ? 'definitely eligible!' : 'currently under review'}. `;
+      if (eligibility.reasons && eligibility.reasons.length > 0) {
+        verdict += `Basically, ${eligibility.reasons[0].toLowerCase()}. `;
+      }
+      return {
+        text: verdict,
+        suggestedActions: ["Print Report", "Check Security"]
+      };
+    }
+
+    // 6. TEAM
+    if (input.includes("team") || input.includes("who built") || input.includes("krishna") || input.includes("developer")) {
+      return {
+        text: `We're a team from PRIX Robotics! KRISHNA PATIL RAJPUT was our lead web developer. Yash Baviskar built the backend, Ritesh Rathod handled the documentation, and Pratik Somase did all the research. We built me to make scholarship verification fast and safe!`,
+        suggestedActions: ["About Website", "Contact Team"]
+      };
+    }
+
     return {
-      text: `That's an interesting point, ${user.username}. I'm processing your query through my collaborative reasoning engine. While I focus on forensics and policy, I can certainly discuss your application's status or the team behind PRIX Robotics. What specific details can I clarify?`,
-      suggestedActions: ["Status Update", "About PRIX Team"]
+      text: `I'm not quite sure about that one, ${user.username}. You can ask me to 'give reports', 'give information about previous documents', or 'is my document harmful or useful'. I'm here to help!`,
+      suggestedActions: ["give reports", "check my files", "is my document useful?"]
     };
   }
 };
