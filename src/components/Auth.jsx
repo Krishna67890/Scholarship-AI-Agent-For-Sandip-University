@@ -20,7 +20,7 @@ const Auth = ({ onLogin, voiceGender, onVoiceChange, voiceEnabled, setVoiceEnabl
   useEffect(() => {
     if (voiceEnabled) {
       const timer = setTimeout(() => {
-        speak("welcome to login page please login through your email and password then sign in if you dint sign in 1st register then sign in", voiceGender);
+        speak("Welcome to the login page. Please login with your email and password. If you haven't registered yet, please register first.", voiceGender);
       }, 1500);
       return () => clearTimeout(timer);
     }
