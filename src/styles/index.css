@@ -42,3 +42,42 @@ body {
 .agent-badge {
   @apply px-2 py-1 rounded-full text-xs font-medium uppercase tracking-wider;
 }
+
+/* Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 10px;
+}
+
+/* Printing Fixes */
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+  /* Ensure fixed containers dont clip */
+  main {
+    overflow: visible !important;
+    height: auto !important;
+    position: static !important;
+  }
+}

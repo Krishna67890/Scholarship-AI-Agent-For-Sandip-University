@@ -193,7 +193,7 @@ const Dashboard = ({ user, onLogout, globalVoiceEnabled, globalVoiceGender, setG
           </div>
 
           <div className="flex items-center gap-2 sm:gap-6">
-            <div className="flex items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r sm:border-white/10 text-right">
+            <div className="flex items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r sm:border-white/10 text-right block">
               <div className="hidden xs:block text-right">
                 <p className="text-[10px] sm:text-[11px] font-black text-white leading-none uppercase tracking-widest mb-1">{mailName}</p>
                 <p className="text-[8px] sm:text-[9px] text-primary-500 font-bold uppercase tracking-tighter flex items-center justify-end gap-1.5 opacity-80">
@@ -229,13 +229,14 @@ const Dashboard = ({ user, onLogout, globalVoiceEnabled, globalVoiceGender, setG
               <div className="bg-slate-900/40 border border-white/5 p-6 sm:p-8 rounded-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10"><InfoIcon size={64} /></div>
                 <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tighter mb-4 flex items-center gap-3"><Zap className="text-primary-500" size={24} />System Operation Framework</h3>
+                <p className="text-[10px] text-slate-400 mb-6 font-medium italic">"Experience the future of scholarship management. Our autonomous agents handle the heavy lifting, allowing you to track progress in real-time within this command center."</p>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                   {[
-                    { step: '01', label: 'STARTED', info: 'Initialization of session and identity auth.' },
-                    { step: '02', label: 'UPLOAD', info: 'Secure document transmission pipeline.' },
-                    { step: '03', label: 'OCR_SCAN', info: 'Deep neural data extraction from artifacts.' },
-                    { step: '04', label: 'ELIGIBILITY', info: 'Rule agent matching against criteria.' },
-                    { step: '05', label: 'FINAL', info: 'Forensic ledger commitment and approval.' }
+                    { step: '01', label: 'STARTED', info: 'The process begins when you authenticate your identity session. This creates a secure, end-to-end encrypted node for your scholarship application.' },
+                    { step: '02', label: 'UPLOAD', info: 'Transmit your Aadhaar, marksheets, and certificates through the Secure Pipeline. We maintain binary integrity throughout the transfer.' },
+                    { step: '03', label: 'OCR_SCAN', info: 'Our Deep Neural OCR Agent reads every character from your documents, extracting key data points with 99.9% accuracy for verification.' },
+                    { step: '04', label: 'ELIGIBILITY', info: 'The Eligibility Agent crunches your marks and income certificates against current policy rules to determine your qualifying status.' },
+                    { step: '05', label: 'FINAL', info: 'Once verified, a comprehensive forensic report is generated and committed to the permanent scholarship ledger for approval.' }
                   ].map((item, i) => (
                     <div key={i} className="p-4 bg-black/40 border border-white/5 rounded-sm hover:border-primary-500/30 transition-all">
                       <p className="text-primary-500 font-black text-xs mb-1">{item.step}</p>
